@@ -13,9 +13,7 @@ public:
         
         for (int i = 0; i < nums.size(); i++) {
             for (int j = 0; j < i; j++) {
-                if (nums[j] < nums[i]) {
-                    temp1[i] = max(temp1[i], temp1[j] + 1);
-                }
+                if (nums[j] < nums[i]) temp1[i] = max(temp1[i], temp1[j] + 1);
             }
         }
         int max =  *max_element(temp1.begin(), temp1.end());  
@@ -25,16 +23,62 @@ public:
 
 class Solution {
 public:
+    int lengthOfLIS(vector<int>& nums) {
+ 
+        vector<int> temp1(nums.size());
+        temp1[0] = 1;
+        
+        for (int i = 1; i < nums.size(); i++) {
+            temp1[i] = 1;
+            for (int j = i - 1; j >= 0; j--) {
+                if (nums[j] < nums[i]) temp1[i] = max(temp1[i], temp1[j] + 1);
+            }
+        }
+        return *max_element(temp1.begin(), temp1.end());  
+    }
+};
+
+class Solution {
+public:
+    int binarySearch(vector<int>& temp, int target) {
+        int left = 0;
+        int right = temp.size() - 1;
+        int ans = INT_MAX;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (temp[mid] >= target) {
+                ans = min(ans, mid);
+                right = mid - 1;
+            }
+            else left = mid + 1;
+        }
+        if (ans != INT_MAX) return ans;
+        else return -1;
+    }
+
+    int lengthOfLIS(vector<int>& nums) { 
+        vector<int> temp;
+        temp.push_back(nums[0]);
+        for (int i = 1; i < nums.size(); i++) {
+            int j = binarySearch(temp, nums[i]);
+            if (j == -1) temp.push_back(nums[i]);
+            else temp[j] = nums[i];
+        }
+        return temp.size();
+    }
+};
+
+
+
+class Solution {
+public:
     int lengthOfLIS(vector<int>& nums) { 
         vector<int> temp;
         
         for (auto num : nums) {
             auto lower = lower_bound(temp.begin(), temp.end(), num);
-            if (lower == temp.end()) {
-                temp.push_back(num);
-            } else {
-                temp[lower - temp.begin()] = num;
-            }
+            if (lower == temp.end()) temp.push_back(num);
+            else temp[lower - temp.begin()] = num;
         }
         return temp.size();
     }
