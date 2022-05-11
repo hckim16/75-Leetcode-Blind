@@ -1,0 +1,17 @@
+Given an array of distinct integers nums and a target integer target, return the number of possible combinations that add up to target.
+
+The test cases are generated so that the answer can fit in a 32-bit integer.
+
+class Solution {
+public:
+    int combinationSum4(vector<int>& nums, int target) {
+        vector<uint> vec(target + 1, 0);
+        vec[0] = 1;
+        for (int i = 1; i < vec.size(); i++) {
+            for (int j = 0; j < nums.size(); j++) {
+                if (nums[j] <= i) vec[i] += vec[i - nums[j]];
+            }
+        }
+        return vec[target];
+    }
+};
