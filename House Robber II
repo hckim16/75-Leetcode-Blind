@@ -26,6 +26,8 @@ public:
     }
     
     int rob(vector<int>& nums) {
+    
+        if (nums.size() == 1) return nums[0];
         
         vector<int> vec(nums.begin(), nums.end() - 1);
         vector<int> vec1(nums.begin() + 1, nums.end());
