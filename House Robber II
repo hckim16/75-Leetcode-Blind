@@ -6,3 +6,30 @@ and it will automatically contact the police if two adjacent houses were broken 
 
 Given an integer array nums representing the amount of money of each house, 
 return the maximum amount of money you can rob tonight without alerting the police.
+
+class Solution {
+public:
+
+    int helper(vector<int>& nums) {
+        
+        if (nums.size() == 0) return 0;
+        if (nums.size() == 1) return nums[0];
+        
+        vector<int> vec(nums.size() + 1);
+        vec[0] = nums[0];
+        vec[1] = max(nums[0], nums[1]);
+        
+        for (int i = 2; i < nums.size(); i++) {
+            vec[i] = max(nums[i] + vec[i - 2], vec[i - 1]);
+        }
+        return vec[nums.size() - 1];
+    }
+    
+    int rob(vector<int>& nums) {
+        
+        vector<int> vec(nums.begin(), nums.end() - 1);
+        vector<int> vec1(nums.begin() + 1, nums.end());
+        
+        return max(helper(vec), helper(vec1));
+    }
+};
