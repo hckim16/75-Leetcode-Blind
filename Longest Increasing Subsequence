@@ -21,6 +21,8 @@ public:
     }
 };
 
+// 2nd solution:
+
 class Solution {
 public:
     int lengthOfLIS(vector<int>& nums) {
@@ -37,6 +39,8 @@ public:
         return *max_element(temp1.begin(), temp1.end());  
     }
 };
+
+// 3rd solution:
 
 class Solution {
 public:
@@ -68,7 +72,7 @@ public:
     }
 };
 
-
+4th solution:
 
 class Solution {
 public:
