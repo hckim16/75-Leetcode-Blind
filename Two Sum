@@ -18,3 +18,20 @@ vector <int> twoSum(vector<int>& nums, int target) {
   }
   return results;
 }
+
+
+Another version:
+
+std::array<int, 2> pairSum(std::vector<int> numbers, int target) {
+  
+  std::unordered_map<int,int> map;
+  std::vector<int> vec;
+  
+  for (int i = 0; i < numbers.size(); i++) {
+    int remainder = target - numbers[i];
+    if (map.count(remainder) > 0) {
+      return std::array { i, map[remainder] };
+    }
+    map[numbers[i]] = i;
+  }
+}
