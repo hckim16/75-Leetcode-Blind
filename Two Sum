@@ -36,18 +36,3 @@ std::array<int, 2> pairSum(std::vector<int> numbers, int target) {
   }
 }
 
-Another version:
-
-class Solution {
-public:
-    vector<int> twoSum(vector<int>& nums, int target) {
-        
-        vector<int> vec;
-        for (int i : nums) {
-            int complement = target - nums[i];
-            auto pos = search(nums.begin(), nums.end(), complement );
-            if (pos != cend(nums)) return vec { i, i};
-            
-        }
-    }
-};
